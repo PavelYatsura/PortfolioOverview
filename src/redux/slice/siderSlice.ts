@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Items } from '../../interface/typeItems'
 import { RootState } from '../store'
+import { loadState } from '../storage'
+
+export const SIDER_KEY = 'sider'
 
 interface SiderState {
 	items: Items[]
@@ -12,7 +15,7 @@ type updateItem = {
 	name: string
 }
 
-const initialState: SiderState = {
+const initialState: SiderState = loadState<SiderState>(SIDER_KEY) ?? {
 	items: [],
 	totalPrice: 0,
 }

@@ -2,7 +2,7 @@ import { Layout, Card, Statistic, List, Typography, Tag } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectSider, upDateItem } from '../../redux/slice/siderSlice'
+import { deleteItem, selectSider, upDateItem } from '../../redux/slice/siderSlice'
 
 const siderStyle: React.CSSProperties = {
 	padding: '1rem',
@@ -44,6 +44,10 @@ const AppSider: React.FC = () => {
 		wsItems()
 	}, [dispatch, items])
 
+	const onClickDeleted = (index: number) => {
+		dispatch(deleteItem(index))
+	}
+
 	return (
 		<Layout.Sider width='25%' style={siderStyle}>
 			{items.length === 0 ? (
@@ -63,7 +67,11 @@ const AppSider: React.FC = () => {
 			) : (
 				<div style={{ width: '100%' }}>
 					{items.map((item, index) => (
-						<Card key={index} style={{ marginBottom: '1rem' }}>
+						<Card
+							key={index}
+							style={{ marginBottom: '1rem' }}
+							onClick={() => onClickDeleted(index)}
+						>
 							<Statistic
 								title={
 									<div>

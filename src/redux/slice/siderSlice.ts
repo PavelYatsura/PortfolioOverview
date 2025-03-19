@@ -42,9 +42,15 @@ export const siderSlice = createSlice({
 				}, 0)
 			}
 		},
+		deleteItem(state, action: PayloadAction<number>) {
+			state.items.splice(action.payload, 1)
+			state.totalPrice = state.items.reduce((sum, obj) => {
+				return obj.price * obj.amount + sum
+			}, 0)
+		},
 	},
 })
 
-export const { addItem, upDateItem } = siderSlice.actions
+export const { addItem, upDateItem, deleteItem } = siderSlice.actions
 export const selectSider = (state: RootState) => state.sider
 export default siderSlice.reducer
